@@ -1,0 +1,1 @@
+Artify is a React Native Expo app I am building to learn more about React Native and to practice using Typescript.
