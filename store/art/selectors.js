@@ -1,3 +1,3 @@
 export const selectPainting = (state) => {
-  return state.painting;
+  return state.art.paintings;
 };

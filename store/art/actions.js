@@ -9,13 +9,12 @@ const paintingFetched = (data) => {
   };
 };
 
-// Get one painting
+// Get paintings
 export function fetchPainting() {
   return async function thunk(dispatch, getState) {
     try {
-      const res = await axios.get(`${apiUrl}`);
-      console.log("response:", res);
-      dispatch(paintingFetched(res.data));
+      const res = await axios.get(`${apiUrl}&toppieces=true&imgonly=true`);
+      dispatch(paintingFetched(res.data.artObjects));
     } catch (e) {
       console.log(e);
     }

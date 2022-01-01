@@ -1,11 +1,13 @@
 import { StyleSheet, Button } from "react-native";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import EditScreenInfo from "../components/EditScreenInfo";
+import { Image } from "react-native";
 import { Text, View } from "../components/Themed";
 import { RootTabScreenProps } from "../types";
 
-import { fetchPainting } from "../store/painting/actions";
+import { fetchPainting } from "../store/art/actions";
+import { selectPainting } from "../store/art/selectors";
 
 export default function TabOneScreen({
   navigation,
@@ -13,6 +15,21 @@ export default function TabOneScreen({
   const dispatch = useDispatch();
   function buttonClick() {
     dispatch(fetchPainting());
+  }
+  const paintings: [] = useSelector(selectPainting);
+  console.log("paintings", paintings);
+
+  interface Painting {
+    id: string;
+    title: string;
+    webImage: {
+      guid: string;
+      height: number;
+      offsetPercentageX: number;
+      offsetPercentageY: number;
+      url: string;
+      width: number;
+    };
   }
 
   return (
@@ -23,11 +40,24 @@ export default function TabOneScreen({
         lightColor="#eee"
         darkColor="rgba(255,255,255,0.1)"
       />
-      <Button
-        onPress={buttonClick}
-        title="Fetch something"
-        color="#c1262c"
-      />
+
+      {!paintings ? (
+        <></>
+      ) : (
+        paintings.map((painting: Painting) => {
+          return (
+            <View key={painting.id}>
+              <Text>{painting.title}</Text>
+              <Image
+                source={{ uri: painting.webImage.url }}
+                style={{ width: "100%", height: 160, marginBottom: 30 }}
+              />
+            </View>
+          );
+        })
+      )}
+
+      <Button onPress={buttonClick} title="Fetch something" color="#c1262c" />
     </View>
   );
 }

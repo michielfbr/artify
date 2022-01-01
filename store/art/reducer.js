@@ -1,13 +1,13 @@
 const initialState = {
-  painting: {},
+  paintings: [],
 };
 
-export default function Painting(state = initialState, action) {
+export default function Art(state = initialState, action) {
   switch (action.type) {
     case "paintingFetched": {
       return {
-        ...state.painting,
-        painting: action.payload,
+        ...state,
+        paintings: action.payload,
       };
     }
     default: {
