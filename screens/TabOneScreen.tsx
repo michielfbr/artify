@@ -14,7 +14,7 @@ export default function TabOneScreen({
 }: RootTabScreenProps<"TabOne">) {
   const dispatch = useDispatch();
   const NoOfFetches: number = useSelector(selectNoOfFetches);
-  const pageNo: number = NoOfFetches + 1
+  const pageNo: number = NoOfFetches + 1;
   function buttonClick() {
     dispatch(fetchPainting(pageNo));
   }
@@ -24,6 +24,7 @@ export default function TabOneScreen({
   interface Painting {
     id: string;
     title: string;
+    principalOrFirstMaker: string
     webImage: {
       guid: string;
       height: number;
@@ -36,7 +37,7 @@ export default function TabOneScreen({
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
+      <Text style={styles.title}>Artify</Text>
       <View
         style={styles.separator}
         lightColor="#eee"
@@ -49,11 +50,12 @@ export default function TabOneScreen({
         paintings.map((painting: Painting) => {
           return (
             <View key={painting.id}>
-              <Text>{painting.title}</Text>
               <Image
                 source={{ uri: painting.webImage.url }}
-                style={{ width: "100%", height: 160, marginBottom: 30 }}
+                style={{ width: "100%", height: 160, marginBottom: 10 }}
               />
+              <Text style={{ marginBottom: 5 }}>{painting.title}</Text>
+              <Text style={{ marginBottom: 10 }}>{painting.principalOrFirstMaker}</Text>
             </View>
           );
         })
