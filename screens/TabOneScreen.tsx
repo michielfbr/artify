@@ -7,14 +7,16 @@ import { Text, View } from "../components/Themed";
 import { RootTabScreenProps } from "../types";
 
 import { fetchPainting } from "../store/art/actions";
-import { selectPainting } from "../store/art/selectors";
+import { selectPainting, selectNoOfFetches } from "../store/art/selectors";
 
 export default function TabOneScreen({
   navigation,
 }: RootTabScreenProps<"TabOne">) {
   const dispatch = useDispatch();
+  const NoOfFetches: number = useSelector(selectNoOfFetches);
+  const pageNo: number = NoOfFetches + 1
   function buttonClick() {
-    dispatch(fetchPainting());
+    dispatch(fetchPainting(pageNo));
   }
   const paintings: [] = useSelector(selectPainting);
   console.log("paintings", paintings);
